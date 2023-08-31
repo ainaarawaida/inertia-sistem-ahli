@@ -1,30 +1,19 @@
 <script>
-    import BreezeButton from "@/Components/Button.svelte";
-    import BreezeCheckbox from "@/Components/Checkbox.svelte";
-    import BreezeGuestLayout from "@/Layouts/Guest.svelte";
-    import BreezeInput from "@/Components/Input.svelte";
-    import BreezeLabel from "@/Components/Label.svelte";
-    import BreezeValidationErrors from "@/Components/ValidationErrors.svelte";
-    import { Link, useForm } from "@inertiajs/inertia-svelte";
-    let err = {};
-    export let errors = {};
-    export let canResetPassword;
-    export let status;
-
-    const form = useForm({
+    import SubLayout from "@/NewLayouts/SubLayout.svelte";
+    import { inertia, useForm } from "@inertiajs/inertia-svelte";
+    let form = useForm({
         email: null,
         password: null,
         remember: false,
     });
-
-    $: {
-        err = errors;
-    }
-
-    const onSubmit = () => {
+    function submit() {
         $form.post("/login", {
             onSuccess: () => $form.reset(),
         });
+    }
+    export let errors = {};
+    let closeEle = (e) => {
+        errors = {};
     };
 </script>
 
@@ -32,68 +21,143 @@
     <title>Log in</title>
 </svelte:head>
 
-<BreezeGuestLayout>
-    <BreezeValidationErrors class="mb-4" errors={err} />
+<SubLayout>
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-7">
+                    <img
+                        class="bg-img-cover bg-center"
+                        src="../assets/images/login/2.jpg"
+                        alt="looginpage"
+                    />
+                </div>
+                <div class="col-xl-5 p-0">
+                    <div class="login-card">
+                        <form
+                            class="theme-form login-form"
+                            on:submit|preventDefault={submit}
+                        >
+                            <h4>Login</h4>
+                            <h6>Welcome back! Log in to your account.</h6>
+                            {#if Object.keys(errors).length > 0}
+                                <div
+                                    class="alert alert-danger alert-dismissible fade show"
+                                    role="alert"
+                                >
+                                    {errors?.[Object.keys(errors)[0]]}
 
-    {#if status}
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {status}
+                                    <button
+                                        on:click={(e) => closeEle(e)}
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="alert"
+                                        aria-label="Close"
+                                    />
+                                </div>
+                            {/if}
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        ><i class="icon-email" /></span
+                                    >
+                                    <input
+                                        class="form-control"
+                                        type="email"
+                                        required=""
+                                        placeholder="Test@gmail.com"
+                                        bind:value={$form.email}
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        ><i class="icon-lock" /></span
+                                    >
+                                    <input
+                                        class="form-control"
+                                        type="password"
+                                        name="login[password]"
+                                        required=""
+                                        placeholder="*********"
+                                        bind:value={$form.password}
+                                    />
+                                    <div class="show-hide">
+                                        <span class="show" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input
+                                        id="checkbox1"
+                                        type="checkbox"
+                                        bind:checked={form.remember}
+                                    />
+                                    <label class="text-muted" for="checkbox1"
+                                        >Remember password</label
+                                    >
+                                </div>
+                                <a
+                                    class="link"
+                                    use:inertia
+                                    href="/password/reset">Forgot password?</a
+                                >
+                            </div>
+                            <div class="form-group">
+                                <button
+                                    class="btn btn-primary btn-block"
+                                    type="submit">Sign in</button
+                                >
+                            </div>
+                            <!-- <div class="login-social-title">
+                                <h5>Sign in with</h5>
+                            </div>
+                            <div class="form-group">
+                                <ul class="login-social">
+                                    <li>
+                                        <a
+                                            href="https://www.linkedin.com/login"
+                                            target="_blank"
+                                            ><i data-feather="linkedin" /></a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="https://www.linkedin.com/login"
+                                            target="_blank"
+                                            ><i data-feather="twitter" /></a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="https://www.linkedin.com/login"
+                                            target="_blank"
+                                            ><i data-feather="facebook" /></a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="https://www.instagram.com/login"
+                                            target="_blank"
+                                            ><i data-feather="instagram" /></a
+                                        >
+                                    </li>
+                                </ul>
+                            </div> -->
+                            <p>
+                                Don't have account?<a
+                                    class="ms-2"
+                                    href="sign-up.html">Create Account</a
+                                >
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    {/if}
-
-    <form on:submit|preventDefault={onSubmit}>
-        <div>
-            <BreezeLabel for="email" value="Email" />
-            <BreezeInput
-                id="email"
-                type="email"
-                class="mt-1 block w-full"
-                value={form.email}
-                required
-                autofocus
-                autocomplete="username"
-                on:input={(evt) => ($form.email = evt.detail)}
-            />
-        </div>
-
-        <div class="mt-4">
-            <BreezeLabel for="password" value="Password" />
-            <BreezeInput
-                id="password"
-                type="password"
-                class="mt-1 block w-full"
-                value={form.password}
-                required
-                autocomplete="current-password"
-                on:input={(evt) => ($form.password = evt.detail)}
-            />
-        </div>
-
-        <div class="block mt-4">
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label class="flex items-center">
-                <BreezeCheckbox name="remember" bind:checked={form.remember} />
-                <span class="ml-2 text-sm text-gray-600">Remember me</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            {#if canResetPassword}
-                <Link
-                    href="/password/reset"
-                    class="underline text-sm text-gray-600 hover:text-gray-900"
-                >
-                    Forgot your password?
-                </Link>
-            {/if}
-
-            <BreezeButton
-                class="ml-4"
-                sclass:opacity-25={form.processing}
-                disabled={form.processing}
-            >
-                Log in
-            </BreezeButton>
-        </div>
-    </form>
-</BreezeGuestLayout>
+    </section>
+</SubLayout>

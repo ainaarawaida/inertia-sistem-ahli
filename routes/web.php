@@ -20,7 +20,6 @@ use Inertia\Inertia;
 |
 */
 
-
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -29,6 +28,8 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+
 
 require __DIR__ . '/auth.php';
 
