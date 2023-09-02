@@ -153,7 +153,7 @@
                                         required
                                         bind:checked={$form.agree}
                                     />
-                                    <label class="text-muted" for="checkbox1"
+                                    <label class="text-muted" for="agree"
                                         >Agree with <span>
                                             Privacy Policy</span
                                         ></label

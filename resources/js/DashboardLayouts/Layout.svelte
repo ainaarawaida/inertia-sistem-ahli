@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { loadScript } from "@/helpers/document.js";
+
     onMount(async () => {
         await loadScript(
             "/assets/js/jquery-3.5.1.min.js",
@@ -36,6 +37,10 @@
         // await loadScript("/assets/js/jarallax_libs/libs.min.js", "libs.min.js");
 
         await loadScript(
+            "/assets/js/chart/chartjs/chart.min.js",
+            "chart.min.js"
+        );
+        await loadScript(
             "/assets/js/chart/chartist/chartist.js",
             "chartist.js"
         );
@@ -48,10 +53,10 @@
             "/assets/js/chart/knob/knob-chart.js",
             "knob-chart.js"
         );
-        // await loadScript(
-        //     "/assets/js/chart/apex-chart/apex-chart.js",
-        //     "sapex-chart.js"
-        // );
+        await loadScript(
+            "/assets/js/chart/apex-chart/apex-chart.js",
+            "apex-chart.js"
+        );
         await loadScript(
             "/assets/js/chart/apex-chart/stock-prices.js",
             "stock-prices.js"
@@ -97,7 +102,7 @@
             "/assets/js/vector-map/map/jquery-jvectormap-asia-mill.js",
             "jquery-jvectormap-asia-mill.js"
         );
-        // await loadScript("/assets/js/dashboard/default.js", "default.js");
+        await loadScript("/assets/js/dashboard/default.js", "default.js");
         await loadScript("/assets/js/notify/index.js", "index.js");
         await loadScript(
             "/assets/js/datepicker/date-picker/datepicker.js",
@@ -117,7 +122,90 @@
             "customizer.js"
         );
 
-        let checkload = setInterval(() => {
+        await loadScript(
+            "/assets/js/datatable/datatables/jquery.dataTables.min.js",
+            "jquery.dataTables.min.js"
+        );
+
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/dataTables.buttons.min.js",
+            "dataTables.buttons.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/jszip.min.js",
+            "jszip.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/buttons.colVis.min.js",
+            "buttons.colVis.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/pdfmake.min.js",
+            "pdfmake.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/vfs_fonts.js",
+            "vfs_fonts.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/dataTables.autoFill.min.js",
+            "dataTables.autoFill.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/dataTables.select.min.js",
+            "dataTables.select.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/buttons.bootstrap4.min.js",
+            "buttons.bootstrap4.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/buttons.html5.min.js",
+            "buttons.html5.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/buttons.print.min.js",
+            "buttons.print.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/dataTables.bootstrap4.min.js",
+            "dataTables.bootstrap4.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/dataTables.responsive.min.js",
+            "dataTables.responsive.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/responsive.bootstrap4.min.js",
+            "responsive.bootstrap4.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/dataTables.keyTable.min.js",
+            "dataTables.keyTable.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/dataTables.colReorder.min.js",
+            "dataTables.colReorder.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/dataTables.fixedHeader.min.js",
+            "dataTables.fixedHeader.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/dataTables.rowReorder.min.js",
+            "dataTables.rowReorder.min.js"
+        );
+        await loadScript(
+            "/assets/js/datatable/datatable-extension/dataTables.scroller.min.js",
+            "dataTables.scroller.min.js"
+        );
+        await loadScript("/assets/js/tooltip-init.js", "tooltip-init.js");
+        await loadScript(
+            "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js",
+            "toastr.min.js"
+        );
+
+        let checkload = setInterval(async () => {
             if (window.jQuery && window.DataTable) {
                 console.log("script loaded successfully!");
 
@@ -159,6 +247,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/date-picker.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/vector-map.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/owlcarousel.css" />
 
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
@@ -173,6 +262,19 @@
     />
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/datatables.css" />
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="/assets/css/datatable-extension.css"
+    />
+
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
 </svelte:head>
 
 <slot />
