@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     import { page } from "@inertiajs/inertia-svelte";
     import SubLayout from "@/DashboardLayouts/SubLayout.svelte";
     import { loadScript } from "@/helpers/document.js";
@@ -11,6 +11,11 @@
         let checkload = setInterval(async () => {
             if (window.jQuery) {
                 await loadScript(
+                    "/assets/js/theme-customizer/customizer.js",
+                    "customizer.js"
+                );
+
+                await loadScript(
                     "/assets/js/dashboard/dashboard_2.js",
                     "dashboard_2.js"
                 );
@@ -18,6 +23,10 @@
                 clearInterval(checkload);
             }
         }, 1000);
+    });
+
+    onDestroy(() => {
+        document?.querySelector(".customizer-links")?.remove();
     });
 </script>
 

@@ -117,10 +117,10 @@
             "datepicker.custom.js"
         );
         await loadScript("/assets/js/script.js", "script.js");
-        await loadScript(
-            "/assets/js/theme-customizer/customizer.js",
-            "customizer.js"
-        );
+        // await loadScript(
+        //     "/assets/js/theme-customizer/customizer.js",
+        //     "customizer.js"
+        // );
 
         await loadScript(
             "/assets/js/datatable/datatables/jquery.dataTables.min.js",
