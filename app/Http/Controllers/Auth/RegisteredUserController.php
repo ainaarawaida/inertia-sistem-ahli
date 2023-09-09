@@ -34,12 +34,22 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required'],
             'agree' => 'required',
+            'name_organisasi' => 'required',
+            'email_organisasi' => 'required',
+            'alamat' => 'required',
+            'bandar' => 'required',
+            'negeri' => 'required',
+            'url' => 'required|unique:organisasis',
         ]);
+
+
+        //create
 
         $user = User::create([
             'name' => $request->name,
@@ -50,7 +60,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        $msg = "New User Created successful! ";
+        return redirect('/')->with('msg', $msg);
     }
 }

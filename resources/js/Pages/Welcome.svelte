@@ -1,14 +1,107 @@
 <script>
     import SubLayout from "@/NewLayouts/SubLayout.svelte";
+    import { onMount, onDestroy } from "svelte";
+    import { Inertia } from "@inertiajs/inertia";
+
+    import { loadScript } from "@/helpers/document.js";
+
+    export let csrf_token;
+
+    onMount(async () => {
+        await loadScript(
+            "https://code.jquery.com/jquery-3.7.0.js",
+            "jquery-3.7.0.js"
+        );
+
+        await loadScript(
+            "https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js",
+            "jquery.dataTables.min.js"
+        );
+
+        let checkload = setInterval(async () => {
+            if (window.jQuery && window.DataTable) {
+                new DataTable("#example", {
+                    dom: "Bfrtip",
+                    buttons: [
+                        {
+                            text: "Add New",
+                            className: "btn-success",
+                            action: function (e, dt, node, config) {
+                                Inertia.visit("/yuran/create", {
+                                    method: "get",
+                                });
+                            },
+                        },
+                    ],
+
+                    searchDelay: 2000,
+                    ajax: {
+                        url: "/",
+                    },
+                    processing: true,
+                    serverSide: true,
+                    columns: [
+                        { data: "id" },
+                        { data: "name" },
+                        { data: "email" },
+                        { data: "created_at" },
+                        { data: "action" },
+                    ],
+                });
+
+                document
+                    ?.querySelector("#example")
+                    ?.addEventListener("click", (e) => {
+                        let ele = e.target
+                            .closest(".edit")
+                            .getAttribute("data-id");
+
+                        Inertia.visit("/yuran/1/edit", { method: "get" });
+                    });
+                clearInterval(checkload);
+            }
+        }, 1000);
+    });
+
+    onDestroy(() => {
+        document?.querySelector(".dataTables_wrapper")?.remove();
+    });
 </script>
 
 <svelte:head>
     <title>Welcome</title>
+
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
 </svelte:head>
 
 <SubLayout>
     <!--home section start-->
     <section class="landing-home section-pb-space" id="home">
+        <div class="container pt-5 mt-5">
+            <div class="card p-5">
+                <!-- Container-fluid starts-->
+                <div class="container-fluid dashboard-default-sec">
+                    <div class="row">
+                        <table id="example" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Created At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <!-- Container-fluid Ends-->
+            </div>
+        </div>
         <!-- <img
             class="img-fluid bg-img-cover"
             src="../assets/images/landing/landing-home/home-bg2.jpg"

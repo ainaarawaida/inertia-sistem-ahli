@@ -37,6 +37,11 @@
 
         await loadScript("/assets/js/jarallax_libs/libs.min.js", "libs.min.js");
 
+        await loadScript(
+            "/assets/js/select2/select2.full.min.js",
+            "select2.full.min.js"
+        );
+
         await loadScript("/assets/js/script.js", "script.js");
 
         let checkload = setInterval(() => {
@@ -91,6 +96,8 @@
     />
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/select2.css" />
 </svelte:head>
 
 <slot />

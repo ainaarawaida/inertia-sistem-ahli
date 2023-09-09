@@ -20,29 +20,17 @@
                             back<i class="fa fa-angle-right" />
                         </li>
                         <li class="nav-item">
-                            <a use:inertia class="nav-link" href="/">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#demo">Demo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Support</a>
-                        </li>
-                        <li class="nav-item">
-                            <form class="form-inline" action="/">
-                                <button class="nav-link">Hire Us</button>
-                            </form>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Document</a>
+                            <a use:inertia class="nav-link" href="/"
+                                >Senarai Organisasi</a
+                            >
                         </li>
                     </ul>
                     <div class="buy-block">
                         <a use:inertia class="btn-landing" href="/register"
-                            >Register</a
+                            >Daftar Organisasi</a
                         >&nbsp;
                         <a use:inertia class="btn-landing" href="/login"
-                            >Login</a
+                            >Login Organisasi</a
                         >
                         <div class="toggle-menu">
                             <i class="fa fa-bars" />
